@@ -43,4 +43,18 @@
 
 <div class = "span4 offset3 well">
     <h5> My Items </h5>
+    <ul>
+         <% if @itep %>
+            <% @itep.each do |product| %>
+            <% name = product.pluck(:name) %>
+            <% id = product.pluck(:id) %>
+            <% id = id[0].to_i %>
+    
+            <li><%= link_to "#{name[0]}", product_path(id) %></li>
+            <% end %>
+        <% else %>
+            <p> you have no items </p>
+            <p><%= link_to "click here to get started", products_path %>
+        <% end %></ul>
+
 </div>

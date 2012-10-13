@@ -14,8 +14,8 @@ class UsersController < ApplicationController
   # GET /users/1.json
   def show
     @user = User.find(params[:id])
-       @wishitem = Wishitem.where(:user_id => @user.id)
       
+       @wishitem = Wishitem.where(:user_id => @user.id)
       x,@prod,@product = 0,[],[]
       @wishitem.each do |item|
           @prod[x] = item.product_id
@@ -24,6 +24,14 @@ class UsersController < ApplicationController
           x += 1
       end
       
+      @myitem = Myitem.where(:user_id => @user.id)
+      n,@ite,@itep = 0,[],[]
+      @myitem.each do |item|
+          @ite[n] = item.product_id
+          @itep[n] = Product.where( :id => @prod[n])
+          
+          n += 1
+      end
       
       
       
