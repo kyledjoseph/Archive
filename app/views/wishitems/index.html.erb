@@ -1,0 +1,25 @@
+<h1>Listing wishitems</h1>
+
+<table>
+  <tr>
+    <th>User</th>
+    <th>Product</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @wishitems.each do |wishitem| %>
+  <tr>
+    <td><%= wishitem.user %></td>
+    <td><%= wishitem.product_id %></td>
+    <td><%= link_to 'Show', wishitem %></td>
+    <td><%= link_to 'Edit', edit_wishitem_path(wishitem) %></td>
+    <td><%= link_to 'Destroy', wishitem, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Wishitem', new_wishitem_path %>

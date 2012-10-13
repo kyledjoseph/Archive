@@ -1,0 +1,29 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  user: 
+  product_id: 1
+  price: MyString
+  purchase_proof: MyText
+  current_value: MyString
+  purchase_date: MyString
+  location_of_manual: MyText
+  resale_value: MyString
+  rental_value: MyString
+  repair_locations: MyText
+  item_recall: false
+  extra_notes: MyText
+
+two:
+  user: 
+  product_id: 1
+  price: MyString
+  purchase_proof: MyText
+  current_value: MyString
+  purchase_date: MyString
+  location_of_manual: MyText
+  resale_value: MyString
+  rental_value: MyString
+  repair_locations: MyText
+  item_recall: false
+  extra_notes: MyText

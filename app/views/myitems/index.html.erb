@@ -1,0 +1,45 @@
+<h1>Listing myitems</h1>
+
+<table>
+  <tr>
+    <th>User</th>
+    <th>Product</th>
+    <th>Price</th>
+    <th>Purchase proof</th>
+    <th>Current value</th>
+    <th>Purchase date</th>
+    <th>Location of manual</th>
+    <th>Resale value</th>
+    <th>Rental value</th>
+    <th>Repair locations</th>
+    <th>Item recall</th>
+    <th>Extra notes</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @myitems.each do |myitem| %>
+  <tr>
+    <td><%= myitem.user %></td>
+    <td><%= myitem.product_id %></td>
+    <td><%= myitem.price %></td>
+    <td><%= myitem.purchase_proof %></td>
+    <td><%= myitem.current_value %></td>
+    <td><%= myitem.purchase_date %></td>
+    <td><%= myitem.location_of_manual %></td>
+    <td><%= myitem.resale_value %></td>
+    <td><%= myitem.rental_value %></td>
+    <td><%= myitem.repair_locations %></td>
+    <td><%= myitem.item_recall %></td>
+    <td><%= myitem.extra_notes %></td>
+    <td><%= link_to 'Show', myitem %></td>
+    <td><%= link_to 'Edit', edit_myitem_path(myitem) %></td>
+    <td><%= link_to 'Destroy', myitem, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+

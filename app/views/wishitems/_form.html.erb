@@ -1,0 +1,10 @@
+<%= form_for([@user, Wishitem.new], :class => "span6 well") do |f| %>
+  
+  <div class="field">
+    <%= f.label :product_id %><br />
+    <%= f.number_field :product_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

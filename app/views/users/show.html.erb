@@ -1,0 +1,46 @@
+<p id="notice"><%= notice %></p>
+<div class = "span4 offset3 well" align = "center">
+<p>
+  <b>Screenname:</b>
+  <%= @user.screenname %>
+</p>
+
+<p>
+  <b>Name:</b>
+  <%= @user.name %>
+</p>
+
+<p>
+  <b>Email:</b>
+  <%= @user.email %>
+</p>
+
+
+
+
+<%= link_to 'View Products', products_path %> 
+</div>
+<br>
+<div class = "span4 offset3 well" >
+    <h5><u> My Wishlist</u> </h5>
+    <ul>
+        <% if @product %>
+            <% @product.each do |product| %>
+            <% name = product.pluck(:name) %>
+            <% id = product.pluck(:id) %>
+            <% id = id[0].to_i %>
+    
+            <li><%= link_to "#{name[0]}", product_path(id) %>
+                <%= link_to "--add to items", user_myitems_path(@user.id, :product_id => id), :method => :post %>
+                </li>
+            <% end %>
+        <% else %>
+            <p> you have no items in wishlist </p>
+            <p><%= link_to "click here to get started", products_path %>
+        <% end %>
+    </ul>
+</div>
+
+<div class = "span4 offset3 well">
+    <h5> My Items </h5>
+</div>
