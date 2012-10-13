@@ -32,11 +32,7 @@ development:
  # socket: /tmp/mysql.sock
 
 production:
-  adapter: mysql2
-  encoding: utf8
-  reconnect: false
-  database: ItemNation_production
+  adapter: sqlite3
+  database: db/production.sqlite3
   pool: 5
-  username: root
-  password:
-  socket: /tmp/mysql.sock
+  timeout: 5000

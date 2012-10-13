@@ -9,6 +9,7 @@ gem 'omniauth-facebook', '1.4.0'
 gem 'omniauth-google-oauth2'
 gem 'omniauth-identity'
 #gem 'mysql2'
+gem 'sqlite3'
 gem 'mysql2', :group => [:development, :test]
 group :production do
   gem 'thin'
