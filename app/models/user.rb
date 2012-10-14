@@ -1,7 +1,9 @@
 class User < ActiveRecord::Base
+    attr_accessible :admin
     has_many :reviews
     has_many :wishitems
     has_many :myitems
+    has_many :collections
     
     def self.from_omniauth(auth)
         where(auth.slice(:provider, :uid)).first_or_initialize.tap do |user|
@@ -9,6 +11,7 @@ class User < ActiveRecord::Base
             user.uid = auth.uid
             user.name = auth.info.name
             user.email = auth.info.email
+    #user.admin = auth.admin
             user.oauth_token = auth.credentials.token
             
     #user.oauth_expires_at = Time.at(auth.credentials.expires_at)

@@ -48,7 +48,7 @@ class WishitemsController < ApplicationController
 
     respond_to do |format|
       if @wishitem.save
-        format.html { redirect_to products_path, notice: 'Item was successfully added to wishlist.' }
+        format.html { redirect_to @product, notice: 'Item was successfully added to wishlist.' }
         format.json { render json: @user, status: :created, location: @wishitem }
       else
         format.html { render action: "new" }

@@ -10,11 +10,23 @@ class ProductsController < ApplicationController
       format.json { render json: @products }
     end
   end
+    
+    #GET /products/search
+    def search
+        @products = Product.search(params[:search])
+        
+        @prod = Product.where(:name => params[:search])
+        @product = @prod.pluck(:id)
+        @product = @product[0].to_i
+        if !(@product == 0)
+        redirect_to product_path(@product)
+        end
+        end
 
   # GET /products/1
   # GET /products/1.json
   def show
-      
+      @user = User.find(session[:user_id])
     @product = Product.find(params[:id])
       
       
@@ -28,6 +40,13 @@ class ProductsController < ApplicationController
   # GET /products/new.json
   def new
     @product = Product.new
+      x, @category = 0,[]
+       @cat = Category.all
+      @cat.each do |cate|
+          @category[x] = cate.name
+          
+          x += 1
+      end
 
     respond_to do |format|
       format.html # new.html.erb
@@ -44,6 +63,8 @@ class ProductsController < ApplicationController
   # POST /products.json
   def create
     @product = Product.new(params[:product])
+     
+      
 
     respond_to do |format|
       if @product.save

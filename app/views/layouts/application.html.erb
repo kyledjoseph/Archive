@@ -19,15 +19,25 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
+                 <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
             </a>
             <a class="brand" href="/">ItemNation</a>
             <div class="nav-collapse">
                 <ul class="nav">
                     <li><%= link_to "Home", root_path %></li>
                     <li><%= link_to "Profile", current_user %></li>
-                    <li><%= link_to "Products Index", products_path %></li>
+                     <li><%= link_to "Product Categories", categories_path %></li>
+                    <% if !current_user.admin.nil? %>
+                    <li><%= link_to "Admin Panel", admin_user_path(current_user.id) %></li>
+                    <% end %>
                     <li><%= link_to "Sign out", signout_path, id: "sign_out" %></li>
-                    
+<li><%= form_tag search_product_path, :method => 'get' do %>
+<p>
+<%= text_field_tag :search, params[:search] %>
+<%= submit_tag "Search Products", :name => nil %>
+</p>
+<% end %></li>
                 </ul>
             </div>
         </div>

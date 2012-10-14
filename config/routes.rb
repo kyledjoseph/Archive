@@ -2,22 +2,27 @@ ItemNation::Application.routes.draw do
   
 
   
+  
+
+  resources :categories
+
   resources :products
 
   resources :users do
       resources :reviews
       resources :myitems
       resources :wishitems
+      resources :collections
       end
     
     resources :sessions, only: [:new, :create, :destroy]
     
     #product routes
-    
+     match '/search', to: 'products#search', as: 'search_product'
 
   get "pages/home"
     
-    # match '/signup',  to: 'users#new'
+    match 'users/:id/admin', to: 'users#admin', as: 'admin_user'
     match '/signin',  to: 'sessions#new'
     match 'auth/:provider/callback', to: 'sessions#create'
     match 'auth/failure', to: redirect('/')

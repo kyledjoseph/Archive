@@ -1,10 +1,7 @@
 <%= form_for([@user, Myitem.new], :class => "span6 well") do |f| %>
  
   
-  <div class="field">
-    <%= f.label :product_id %><br />
-    <%= f.number_field :product_id %>
-  </div>
+  
   <div class="field">
     <%= f.label :price %><br />
     <%= f.text_field :price %>
@@ -38,8 +35,8 @@
     <%= f.text_area :repair_locations %>
   </div>
   <div class="field">
-    <%= f.label :item_recall %><br />
-    <%= f.check_box :item_recall %>
+    <%= f.label :item_recall, "Has this item been recalled?" %><br />
+    <%= f.select :item_recall, ["yes", "no"] %>
   </div>
   <div class="field">
     <%= f.label :extra_notes %><br />

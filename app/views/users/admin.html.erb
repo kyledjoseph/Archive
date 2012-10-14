@@ -1,0 +1,22 @@
+<p id="notice"><%= notice %></p>
+<p> congrats, you are an admin</p>
+
+<div class = "span5 well offset3">
+<h4> Users panel</h4>
+<p>Current User count: <%=  @users.size %></p>
+<p><%= link_to "View all users", users_path %></p>
+</div>
+
+<div class = "span5 well offset3">
+<h4> Products panel</h4>
+<p>Current Products count: <%=  @products.size %></p>
+<p><%= link_to "Add new Product", new_product_path %></p>
+<p><%= link_to "View all products", products_path %></p>
+</div>
+
+<div class = "span5 well offset3">
+<h4> Categories panel</h4>
+<p>Current Categories count: <%=  @categories.size %></p>
+<p><%= link_to "Add new Category", new_category_path %></p>
+<p><%= link_to "View all Categories", categories_path %></p>
+</div>

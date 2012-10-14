@@ -1,0 +1,21 @@
+<p id="notice"><%= notice %></p>
+
+
+
+<p>
+  <b> Collection Name:</b>
+  <%= @collection.name %>
+</p>
+<div class = "span6 well offset3">
+<h3 align="center"> Collection contents </h3>
+<ul>
+<% if @collection_items %>
+    <% @collection_items.each do |item| %>
+       <li> <%= item %></li>
+        
+    <% end %>
+<% end %>
+</ul>
+</div>
+
+

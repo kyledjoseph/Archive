@@ -2,11 +2,22 @@
 
 <p>
   
-<%= image_tag @product.photo.url(:small) %>
+<%= image_tag @product.photo.url(:small) %> 
+<% uniq_tg = Wishitem.where(:product_id => @product.id, :user_id => @user.id) %>
+<% if (uniq_tg.size == 0) %>
+    <%= link_to "Add to wishlist", user_wishitems_path(@user.id, :product_id => @product.id), :method => :post %>
+<% else %>
+    <%= "Item is present in wish list" %>
+<% end %>
 </p>
 <p>
   <b>Name:</b>
   <%= @product.name %>
+</p>
+
+<p>
+<b>Category:</b>
+<%= @product.category %>
 </p>
 
 <p>
@@ -40,5 +51,3 @@
 </p>
 
 
-<%= link_to 'Edit', edit_product_path(@product) %> |
-<%= link_to 'Back', products_path %>

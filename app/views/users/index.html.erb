@@ -1,11 +1,13 @@
+<p id="notice"><%= notice %></p>
 <h1>Listing users</h1>
 
 <table>
   <tr>
-    <th>Screenname</th>
-    <th>Name</th>
-    <th>Email</th>
-    <th>Admin</th>
+    
+    <th><u>Name</u></th>
+    <th><u>Email</u></th>
+    <th><u>Admin</u></th>
+    <th></th>
     <th></th>
     <th></th>
     <th></th>
@@ -13,17 +15,20 @@
 
 <% @users.each do |user| %>
   <tr>
-    <td><%= user.screenname %></td>
-    <td><%= user.name %></td>
-    <td><%= user.email %></td>
-    <td><%= user.admin %></td>
-    <td><%= link_to 'Show', user %></td>
-    <td><%= link_to 'Edit', edit_user_path(user) %></td>
-    <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td><%= user.name %>------</td>
+    <td><%= user.email %>------</td>
+    <td><%= user.admin %>-------</td>
+    <td>[<%= link_to 'Show', user %></td>
+    <td>|<%= link_to 'Edit', edit_user_path(user) %></td>
+    <td>|<%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td><% if user.admin.nil? %>
+|<%= link_to 'Make Admin', user_path(user.id, :admin_id => @user.id), method: :put, data: { confirm: 'Are you sure?' } %>
+]
+<% end %></td>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New User', new_user_path %>
+

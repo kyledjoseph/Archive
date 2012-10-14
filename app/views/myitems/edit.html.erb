@@ -1,6 +1,56 @@
-<h1>Editing myitem</h1>
+<h1>Edit Items</h1>
+<br><br>
+<%= form_for([@user, @myitem], :class => "span6 well") do |f| %>
+ 
+  
+  <div class="field">
+    <%= f.label :collection %><br />
+    <%= f.select :collection, @collections %>
+  </div>
+  <div class="field">
+    <%= f.label :price %><br />
+    <%= f.text_field :price %>
+  </div>
+  <div class="field">
+    <%= f.label :purchase_proof %><br />
+    <%= f.text_area :purchase_proof %>
+  </div>
+  <div class="field">
+    <%= f.label :current_value %><br />
+    <%= f.text_field :current_value %>
+  </div>
+  <div class="field">
+    <%= f.label :purchase_date %><br />
+    <%= f.text_field :purchase_date %>
+  </div>
+  <div class="field">
+    <%= f.label :location_of_manual %><br />
+    <%= f.text_area :location_of_manual %>
+  </div>
+  <div class="field">
+    <%= f.label :resale_value %><br />
+    <%= f.text_field :resale_value %>
+  </div>
+  <div class="field">
+    <%= f.label :rental_value %><br />
+    <%= f.text_field :rental_value %>
+  </div>
+  <div class="field">
+    <%= f.label :repair_locations %><br />
+    <%= f.text_area :repair_locations %>
+  </div>
+  <div class="field">
+    <%= f.label :item_recall, "Has this item been recalled?" %><br />
+    <%= f.select :item_recall, ["yes", "no"] %>
+  </div>
+  <div class="field">
+    <%= f.label :extra_notes %><br />
+    <%= f.text_area :extra_notes %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
 
-<%= render 'form' %>
 
-<%= link_to 'Show', @myitem %> |
-<%= link_to 'Back', myitems_path %>
+

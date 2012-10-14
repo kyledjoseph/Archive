@@ -3,13 +3,32 @@ class UsersController < ApplicationController
   # GET /users.json
   def index
     @users = User.all
+      @user = User.find(session[:user_id])
+      if !@user.admin.nil?
 
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @users }
-    end
+        else
+          redirect_to root_path, notice: 'Access Restricted'
+      end
   end
-
+    
+    def admin
+        @user = User.find(params[:id])
+        if !@user.admin.nil?
+            @users = User.all
+            @products = Product.all
+            @categories = Category.all
+            
+            
+            
+        respond_to do |format|
+            format.html # admin.html.erb
+            format.json 
+        end
+        else
+            redirect_to root_path, notice: 'Access Restricted'
+        end
+    end
+    
   # GET /users/1
   # GET /users/1.json
   def show
@@ -25,15 +44,16 @@ class UsersController < ApplicationController
       end
       
       @myitem = Myitem.where(:user_id => @user.id)
-      n,@ite,@itep = 0,[],[]
+      n,@ite,@itep,@ritep = 0,[],[],[]
       @myitem.each do |item|
-          @ite[n] = item.product_id
+          #@ite[n] = item.product_id
+          @ritep[n] = item.id
           @itep[n] = Product.where( :id => @prod[n])
           
           n += 1
       end
       
-      
+       @collection = Collection.where(:user_id => @user.id)
       
     respond_to do |format|
       format.html # show.html.erb
@@ -79,16 +99,17 @@ class UsersController < ApplicationController
   # PUT /users/1.json
   def update
     @user = User.find(params[:id])
-
-    respond_to do |format|
-      if @user.update_attributes(params[:user])
-        format.html { redirect_to @user, notice: 'User was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
-      end
-    end
+      @superuser = User.find(session[:user_id])
+      
+      if !@superuser.admin.nil? 
+          
+              if @user.update_attributes(:admin => 1)
+                   redirect_to users_path, notice: 'User was successfully upgraded to admin.' 
+                
+              end
+        end
+          
+    
   end
 
   # DELETE /users/1
