@@ -8,7 +8,7 @@
     <p><%= link_to image_tag(product.photo.url(:small)), product %>
 
         <% if !current_user.admin.nil? %>
-            [<%= link_to "Delete Item", product, :method => :delete, data: { confirm: 'Are you sure?' } %>]
+            [<%= link_to "Delete Item", product, :method => :delete, data: { confirm: 'Are you sure?' } %> | <%= link_to "Edit Item", edit_product_path(product.id) %>]
         <% end %>
         <!--<% if current_user %>
         <%= link_to "Add to wishlist", user_wishitems_path(@user.id, :product_id => product.id), :method => :post %>

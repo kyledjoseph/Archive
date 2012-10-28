@@ -1,8 +1,7 @@
 ItemNation::Application.routes.draw do
   
 
-  
-  
+
 
   resources :categories
 
@@ -13,12 +12,21 @@ ItemNation::Application.routes.draw do
       resources :myitems
       resources :wishitems
       resources :collections
+      resources :comments
+      resources :comparisons
+      resources :emails
       end
     
     resources :sessions, only: [:new, :create, :destroy]
     
     #product routes
      match '/search', to: 'products#search', as: 'search_product'
+    
+    #item routes
+    match 'users/:user_id/myitems/:id/remcol', to: 'myitems#remcol', as: 'remcol_myitem'
+    
+    #comment routes
+    match 'users/:user_id/comments/:id/markcomp', to: 'comments#markcomp', as: 'markcomp_comment'
 
   get "pages/home"
     

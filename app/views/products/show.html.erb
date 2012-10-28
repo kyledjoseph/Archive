@@ -9,6 +9,14 @@
 <% else %>
     <%= "Item is present in wish list" %>
 <% end %>
+[ <%= link_to "Add Review", new_user_review_path(@user.id, :product_id => @product.id) %> ] 
+[<%= link_to "Email share", new_user_email_path(@user.id, :product_id => @product.id) %>]<%= tweet_button(:via => "ItemNation", :url => "http://www.itemnation.com", :text => "Check out this #{@product.name} I found on ItemNation", :count => "right") %>
+   
+    <script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script><fb:like href="http://www.itemnation.com" layout="button_count" show_faces="false" width="450" font=""></fb:like>
+</p>
+<p>
+<b>ItemNation ID:</b>
+<%= @product.id %>
 </p>
 <p>
   <b>Name:</b>
@@ -49,5 +57,18 @@
   <b>Keywords:</b>
   <%= @product.keywords %>
 </p>
+<div class="span6 well offset3">
+
+<p>
+  <h3 align="center">Reviews</h3>
+  <% n = 0 %>
+  <ul><% @reviews.each do |review| %>
+  <li><%= review.content %> - by <%= @poster[n] %> on <%= review.created_at.ctime %> </li> 
+  <% n += 1 %>
+  <% end %></ul>
+  
+</p>
+</div
+
 
 

@@ -76,11 +76,12 @@ class WishitemsController < ApplicationController
   # DELETE /wishitems/1
   # DELETE /wishitems/1.json
   def destroy
+      @user = User.find(params[:user_id])
     @wishitem = Wishitem.find(params[:id])
     @wishitem.destroy
 
     respond_to do |format|
-      format.html { redirect_to wishitems_url }
+        format.html { redirect_to @user, notice: 'item was deleted from wish list' }
       format.json { head :no_content }
     end
   end

@@ -89,12 +89,13 @@ class CollectionsController < ApplicationController
   # DELETE /collections/1
   # DELETE /collections/1.json
   def destroy
+      @user = User.find(params[:user_id])
     @collection = Collection.find(params[:id])
     @collection.destroy
-      @user = User.find(params[:user_id])
+      
 
     respond_to do |format|
-      format.html { redirect_to collections_url }
+      format.html { redirect_to @user }
       format.json { head :no_content }
     end
   end

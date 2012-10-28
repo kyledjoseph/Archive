@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121014213724) do
+ActiveRecord::Schema.define(:version => 20121021210121) do
 
   create_table "categories", :force => true do |t|
     t.string   "name"
@@ -27,6 +27,36 @@ ActiveRecord::Schema.define(:version => 20121014213724) do
   end
 
   add_index "collections", ["user_id"], :name => "index_collections_on_user_id"
+
+  create_table "comments", :force => true do |t|
+    t.integer  "user_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.string   "link"
+    t.text     "content"
+    t.integer  "status"
+  end
+
+  add_index "comments", ["user_id"], :name => "index_comments_on_user_id"
+
+  create_table "comparisons", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "product_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "comparisons", ["user_id"], :name => "index_comparisons_on_user_id"
+
+  create_table "emails", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "recipient"
+    t.integer  "product_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "emails", ["user_id"], :name => "index_emails_on_user_id"
 
   create_table "identities", :force => true do |t|
     t.string   "name"

@@ -4,6 +4,9 @@ class User < ActiveRecord::Base
     has_many :wishitems
     has_many :myitems
     has_many :collections
+    has_many :comments
+    has_many :comparisons
+    has_many :emails
     
     def self.from_omniauth(auth)
         where(auth.slice(:provider, :uid)).first_or_initialize.tap do |user|

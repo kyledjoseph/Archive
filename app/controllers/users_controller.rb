@@ -17,6 +17,7 @@ class UsersController < ApplicationController
             @users = User.all
             @products = Product.all
             @categories = Category.all
+            @comments = Comment.all
             
             
             
@@ -35,20 +36,23 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
       
        @wishitem = Wishitem.where(:user_id => @user.id)
-      x,@prod,@product = 0,[],[]
+      x,@prod,@product,@wid,@wishdate = 0,[],[],[],[]
       @wishitem.each do |item|
           @prod[x] = item.product_id
+          @wid[x] = item.id
+          @wishdate[x] = item.created_at
           @product[x] = Product.where( :id => @prod[x])
           
           x += 1
       end
       
       @myitem = Myitem.where(:user_id => @user.id)
-      n,@ite,@itep,@ritep = 0,[],[],[]
+      n,@ite,@itep,@ritep,@itemdate = 0,[],[],[],[]
       @myitem.each do |item|
           #@ite[n] = item.product_id
           @ritep[n] = item.id
-          @itep[n] = Product.where( :id => @prod[n])
+          @itemdate[n] = item.created_at
+          @itep[n] = Product.where( :id => item.product_id)
           
           n += 1
       end
@@ -102,11 +106,17 @@ class UsersController < ApplicationController
       @superuser = User.find(session[:user_id])
       
       if !@superuser.admin.nil? 
-          
+            if @user.admin.nil?
               if @user.update_attributes(:admin => 1)
                    redirect_to users_path, notice: 'User was successfully upgraded to admin.' 
                 
               end
+            else
+                if @user.update_attributes(:admin => nil)
+                    redirect_to users_path, notice: 'User was successfully downgraded' 
+                    
+                end
+            end
         end
           
     

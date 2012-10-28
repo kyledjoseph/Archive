@@ -1,0 +1,30 @@
+<h1>Comparison box</h1>
+
+<table>
+  <tr>
+    
+    <th>Name</th>
+    <th>Brand</th>
+    <th>Dimensions</th>
+    <th>Weight</th>
+    <th>Price</th>
+    <th>--</th>
+  </tr>
+<% n = -1 %>
+<% @comparisons.each do |comparison| %>
+  <tr>
+    
+    <td><%= @name[n] %></td>
+    <td><%= @brand[n] %></td>
+    <td><%= @dimension[n] %></td>
+    <td><%= @weight[n] %></td>
+    <td><%= @price[n] %></td>
+    <td><%= link_to 'X', user_comparison_path(@user.id, comparison.id), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% n += 1 %>
+<% end %>
+</table>
+
+<br />
+
+

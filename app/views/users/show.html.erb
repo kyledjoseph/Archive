@@ -22,20 +22,33 @@
 </div>
 <br>
 <div class = "span6 offset3 well" >
-    <h5><u> My Wishlist</u> </h5>
+    <h5><u> My Wishlist</u> </h5> - 
+    [<%= link_to "View comparison box", user_comparisons_path(@user.id) %>]<br>
     <ul>
         <% if @product %>
+            <% x = 0 %>
             <% @product.each do |product| %>
             <% name = product.pluck(:name) %>
             <% id = product.pluck(:id) %>
+            
+            <% date = @wishdate[x] %>
             <% id = id[0].to_i %>
     
             <li><%= link_to "#{name[0]}", product_path(id) %>
-                <% uniq_tg = Myitem.where(:product_id => id, :user_id => @user.id) %>
+                - created at <%= date.in_time_zone('Eastern Time (US & Canada)').ctime %>
+                <% uniq_tg = Myitem.where(:product_id => id, :user_id => @user.id) %>[
                 <% if (uniq_tg.size == 0) %>
-                <%= link_to "--add to items", user_myitems_path(@user.id, :product_id => id), :method => :post %>
-                <% end %>
+                    <%= link_to "--add to items", user_myitems_path(@user.id, :product_id => id), :method => :post %>
+                <% end %>|
+
+                <% @comparison = Comparison.where(:product_id => id) %>
+            <% if (@comparison.size == 0) %>
+                <%= link_to "Add to comparison", user_comparisons_path(@user.id, :product_id => id), :method => :post %>
+            <% end %>
+
+                |--<%= link_to "remove from wishlist", user_wishitem_path(@user.id, :id => @wid[x]), :method => :delete, data: { confirm: 'Are you sure?' } %>]
                 </li>
+                <% x += 1 %>
             <% end %>
         <% else %>
             <p> you have no items in wishlist </p>
@@ -51,14 +64,17 @@
             <% m = 0 %>
             <% @itep.each do |product| %>
             <% name = product.pluck(:name) %>
+            
+            <% date = @itemdate[m] %>
             <% idt = product.pluck(:id) %>
             <% idt = idt[0].to_i %>
             
              <li><p><%= link_to "#{name[0]}", user_myitem_path(@user.id, :id => @ritep[m]) %>
+              - added at <%= date.in_time_zone('Eastern Time (US & Canada)').ctime %>
             [ 
-                <%= link_to "--Edit item", edit_user_myitem_path(@user.id, :id => @ritep[m]) %>
+                <%= link_to "--Edit item", edit_user_myitem_path(@user.id, :id => @ritep[m]) %> |
             
-            
+                --<%= link_to "delete item", user_myitem_path(@user.id, :id => @ritep[m]), :method => :delete, data: { confirm: 'Are you sure?' } %>
             
             ]</p></li> 
             
@@ -78,7 +94,17 @@
     <% if @collection %>
     <ul>
         <% @collection.each do |collection| %>
-           <li> <%= link_to collection.name, user_collection_path(@user.id, collection.id) %></li>
+        <% @items = Myitem.where(:collection => collection.name) %>
+           <li><b> <%= link_to collection.name, user_collection_path(@user.id, collection.id) %></b>
+           
+                [--<%= link_to "delete collection", user_collection_path(@user.id, :id => collection.id), :method => :delete, data: { confirm: 'Are you sure?' } %>]<br>
+                        <% @items.each do |item| %>
+                            <% prod = Product.where(:id => item.product_id) %>
+                            <% p = prod.pluck(:name) %>
+                            <%= p = p[0] %> [<%= link_to "X", remcol_myitem_path(@user.id, :id => item.id, :tag => 'y'),data: { confirm: 'Are you sure you want to remove from collection?' } %>]
+                        <% end %>
+                
+           </li>
         <% end %>
         </ul>
     <% end %>

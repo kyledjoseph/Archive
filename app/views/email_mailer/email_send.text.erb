@@ -1,0 +1,8 @@
+
+<% product = Product.where(:id => @email.product_id) %>
+<% name = product.pluck(:name) %>
+<% name = name[0] %>
+Hey dude
+
+I just found this <%= name %> on ItemNation!
+check it out.

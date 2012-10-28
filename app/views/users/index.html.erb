@@ -24,6 +24,10 @@
     <td><% if user.admin.nil? %>
 |<%= link_to 'Make Admin', user_path(user.id, :admin_id => @user.id), method: :put, data: { confirm: 'Are you sure?' } %>
 ]
+<% else %>
+    |<%= link_to 'Remove admin powers', user_path(user.id, :admin_id => @user.id), method: :put, data: { confirm: 'Are you sure?' } %>
+]
+
 <% end %></td>
   </tr>
 <% end %>

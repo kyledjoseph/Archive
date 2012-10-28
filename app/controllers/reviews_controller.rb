@@ -25,6 +25,8 @@ class ReviewsController < ApplicationController
   # GET /reviews/new.json
   def new
     @review = Review.new
+      @product = Product.find(params[:product_id])
+      @user = User.find(params[:user_id])
 
     respond_to do |format|
       format.html # new.html.erb
@@ -40,11 +42,15 @@ class ReviewsController < ApplicationController
   # POST /reviews
   # POST /reviews.json
   def create
-    @review = Review.new(params[:review])
+      @user = User.find(params[:user_id])
+      @rev = params[:review]
+      @product = Product.find(@rev[:product_id])
+      
+      @review = @user.reviews.build(params[:review])
 
     respond_to do |format|
       if @review.save
-        format.html { redirect_to @review, notice: 'Review was successfully created.' }
+        format.html { redirect_to product_path(@product.id), notice: 'Review was successfully created.' }
         format.json { render json: @review, status: :created, location: @review }
       else
         format.html { render action: "new" }

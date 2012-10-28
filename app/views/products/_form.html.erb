@@ -15,10 +15,14 @@
     <%= f.label :name %><br />
     <%= f.text_field :name %>
   </div>
+
+<% if @category %>
     <div class="field">
         <%= f.label :category %><br />
         <%= f.select :category, @category %>
     </div>
+<% end %>
+
   <div class="field">
     <%= f.label :brand %><br />
     <%= f.text_field :brand %>

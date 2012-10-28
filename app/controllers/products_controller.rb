@@ -28,7 +28,17 @@ class ProductsController < ApplicationController
   def show
       @user = User.find(session[:user_id])
     @product = Product.find(params[:id])
-      
+      #@comparison = Comparison.where(:product_id => @product.id)
+      @reviews = Review.where(:product_id => @product.id)
+      x,@poster = 0,[]
+      @reviews.each do |poster|
+          person = poster.user_id
+          person = User.where(:id => person)
+          person = person.pluck(:name)
+          @poster[x] = person[0]
+          
+          x += 1
+        end
       
     respond_to do |format|
       format.html # show.html.erb

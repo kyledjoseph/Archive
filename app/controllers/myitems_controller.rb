@@ -71,10 +71,9 @@ class MyitemsController < ApplicationController
   # PUT /myitems/1
   # PUT /myitems/1.json
   def update
-      
+      @myitem = Myitem.find(params[:id])
       @user = User.find(params[:user_id])
-      #@product = Product.find(params[:product_id])
-      @myitem =  Myitem.find(params[:id])
+        
       
     respond_to do |format|
       if @myitem.update_attributes(params[:myitem])
@@ -87,6 +86,23 @@ class MyitemsController < ApplicationController
     end
   end
 
+def remcol
+    @user = User.find(params[:user_id])
+    
+    @myitem =  Myitem.find(params[:id])
+    
+    
+    if params[:tag]
+        
+        if @myitem.update_attributes(:collection => nil)
+            redirect_to @user, notice: 'item was removed from collection'
+        end
+        
+    end
+    
+end
+        
+        
   # DELETE /myitems/1
   # DELETE /myitems/1.json
   def destroy
@@ -95,7 +111,7 @@ class MyitemsController < ApplicationController
     @myitem.destroy
 
     respond_to do |format|
-      format.html { redirect_to user_path(@user.id) }
+      format.html { redirect_to @user, notice: 'Item has been deleted' }
       format.json { head :no_content }
     end
   end

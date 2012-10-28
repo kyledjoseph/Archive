@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+<div class="span6 well offset3">
+<% if @tagged %>
+    <h3>Viewing resolved comments</h3>
+<% else %>
+    <h3>Viewing outstanding comments</h3>
+<% end %><br>
+<% n = 0 %>
+<% @comments.each do |comment| %>
+    <div class ="span5 well">
+    <ul>
+<h6>Submitted by: <%= link_to @commenter[n], user_path(@com_id[n]) %> on <%= comment.created_at.in_time_zone('Eastern Time (US & Canada)').ctime %>
+</h6>
+        <li><%= comment.content %></li>
+            <ul>
+                <li><%= link_to "#{comment.link}", comment.link %></li>
+            </ul>
+    <% if !@tagged %>
+        [<%= link_to "Mark complete", markcomp_comment_path(@user.id, comment.id) %>]
+    <% end %>
+
+    </ul>
+    </div>
+    <% n += 1 %>
+<% end %>
+
+</div>

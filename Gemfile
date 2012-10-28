@@ -2,7 +2,10 @@ source 'https://rubygems.org'
 
 gem 'rails', '3.2.8'
 gem 'bcrypt-ruby', '3.0.1'
+gem "tweet-button"
 gem "paperclip", "~> 3.0"
+gem "social-buttons", '~> 0.3'
+
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 gem 'omniauth-facebook', '1.4.0'
