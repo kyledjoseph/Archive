@@ -3,6 +3,7 @@
 <p>
   
 <%= image_tag @product.photo.url(:small) %> 
+<% if !(macurrent_user || recurrent_user) %>
 <% uniq_tg = Wishitem.where(:product_id => @product.id, :user_id => @user.id) %>
 <% if (uniq_tg.size == 0) %>
     <%= link_to "Add to wishlist", user_wishitems_path(@user.id, :product_id => @product.id), :method => :post %>
@@ -10,7 +11,9 @@
     <%= "Item is present in wish list" %>
 <% end %>
 [ <%= link_to "Add Review", new_user_review_path(@user.id, :product_id => @product.id) %> ] 
-[<%= link_to "Email share", new_user_email_path(@user.id, :product_id => @product.id) %>]<%= tweet_button(:via => "ItemNation", :url => "http://www.itemnation.com", :text => "Check out this #{@product.name} I found on ItemNation", :count => "right") %>
+[<%= link_to "Email share", new_user_email_path(@user.id, :product_id => @product.id) %>]
+<% end %>
+<%= tweet_button(:via => "ItemNation", :url => "http://www.itemnation.com", :text => "Check out this #{@product.name} I found on ItemNation", :count => "right") %>
    
     <script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script><fb:like href="http://www.itemnation.com" layout="button_count" show_faces="false" width="450" font=""></fb:like>
 </p>

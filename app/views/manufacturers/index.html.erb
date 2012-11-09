@@ -1,0 +1,46 @@
+<p id="notice"><%= notice %> </p>
+<h1>Listing manufacturers</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Email</th>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th>Verification Status</th>
+  </tr>
+
+<% @manufacturers.each do |manufacturer| %>
+<% @veri_stat = Verification.where(:manufacturer_id => manufacturer.id) %>
+<% @veri_id = @veri_stat.pluck(:id) %>
+<% @veri_id = @veri_id[0].to_i %>
+<% @veri_stat = @veri_stat.pluck(:status) %>
+<% @veri_stat = @veri_stat[0] %>
+ 
+
+  <tr>
+    <td><%= manufacturer.name %></td>
+    <td><%= manufacturer.email %></td>
+    <td><%= link_to 'Show', manufacturer %></td>
+    <td><%= link_to 'Edit', edit_manufacturer_path(manufacturer) %></td>
+    <td><%= link_to 'Destroy', manufacturer, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td>
+        <% if @veri_stat == 1 %>
+            Pending -> [
+<%= link_to "Approve", verification_path(@veri_id,:manufacturer_id => manufacturer.id, :tag => 2), method: :put, data: { confirm: 'Are you sure?' } %>
+            |
+                <%= link_to "Deny", verification_path(@veri_id,:manufacturer_id => manufacturer.id, :tag => 3), method: :put, data: { confirm: 'Are you sure?' } %>
+            ]
+        <% elsif @veri_stat == 2 %>
+            Approved
+        <% elsif @veri_stat == 3 %>
+            Denied
+        <% end %>
+    </td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+

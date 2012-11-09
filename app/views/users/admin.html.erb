@@ -8,6 +8,22 @@
 </div>
 
 <div class = "span5 well offset3">
+<h4> Manufacturers and Retailers panel</h4>
+<p>Current Manufacturer count: <%=  @manufacturers.size %></p>
+<p>Current Retailer count: <%=  @retailers.size %></p>
+<p><%= link_to "View all manufacturers", manufacturers_path %></p>
+<p><%= link_to "View all retailers", retailers_path %></p>
+<div class = "span4 well">
+
+
+<p><%= link_to "View Outstanding manufacturer comments (#{Supercomment.where(:status => 1).size})", supercomments_path(:tag => 1) %></p>
+<p><%= link_to "View Resolved manufacturer comments (#{Supercomment.where(:status => 2).size})", supercomments_path(:tag => 2) %></p>
+<p><%= link_to "View Outstanding retailer comments (#{Supercomment.where(:status => 3).size})", supercomments_path(:tag => 3) %></p>
+<p><%= link_to "View Resolved retailer comments (#{Supercomment.where(:status => 4).size})", supercomments_path(:tag => 4) %></p>
+</div>
+</div>
+
+<div class = "span5 well offset3">
 <h4> Products panel</h4>
 <p>Current Products count: <%=  @products.size %></p>
 <p><%= link_to "Add new Product", new_product_path %></p>

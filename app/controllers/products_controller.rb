@@ -3,7 +3,12 @@ class ProductsController < ApplicationController
   # GET /products.json
   def index
     @products = Product.all
-      @user = User.find(session[:user_id])
+    if params[:manufacturer_id]
+        @products = Product.where(:manufacturer_id => params[:manufacturer_id])
+    elsif params[:retailer_id]
+        @products = Product.where(:retailer_id => params[:retailer_id])
+    end
+      #@user = User.find(session[:user_id])
       
     respond_to do |format|
       format.html # index.html.erb
@@ -26,7 +31,9 @@ class ProductsController < ApplicationController
   # GET /products/1
   # GET /products/1.json
   def show
+      if !(macurrent_user || recurrent_user)
       @user = User.find(session[:user_id])
+          end
     @product = Product.find(params[:id])
       #@comparison = Comparison.where(:product_id => @product.id)
       @reviews = Review.where(:product_id => @product.id)

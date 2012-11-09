@@ -1,0 +1,34 @@
+<%= form_for(@retailer) do |f| %>
+  <% if @retailer.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@retailer.errors.count, "error") %> prohibited this retailer from being saved:</h2>
+
+      <ul>
+      <% @retailer.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :email %><br />
+    <%= f.text_field :email %>
+  </div>
+<div class="field">
+<%= f.label :password %><br />
+<%= f.password_field :password %>
+</div>
+<div class="field">
+<%= f.label :password_confirmation, "Confirmation" %><br />
+<%= f.password_field :password_confirmation %>
+</div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

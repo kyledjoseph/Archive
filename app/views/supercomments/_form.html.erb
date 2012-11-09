@@ -1,0 +1,39 @@
+<%= form_for(@supercomment) do |f| %>
+  <% if @supercomment.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@supercomment.errors.count, "error") %> prohibited this supercomment from being saved:</h2>
+
+      <ul>
+      <% @supercomment.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+<% if macurrent_user %>
+  <div class="field">
+    <%= f.hidden_field :manufacturer_id, :value => macurrent_user.id %>
+  </div>
+    <div class="field">
+    <%= f.hidden_field :status, :value => 1 %>
+    </div>
+<% elsif recurrent_user %>
+  <div class="field">
+    <%= f.hidden_field :retailer_id, :value => recurrent_user.id %>
+  </div>
+    <div class="field">
+    <%= f.hidden_field :status, :value => 3 %>
+    </div>
+<% end %>
+  <div class="field">
+    <%= f.label :content %><br />
+    <%= f.text_area :content %>
+  </div>
+  <div class="field">
+    <%= f.label :link %><br />
+    <%= f.text_field :link %>
+  </div>
+  <div class="actions">
+    <%= f.submit "Send Comment" %>
+  </div>
+<% end %>

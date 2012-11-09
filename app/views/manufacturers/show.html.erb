@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+<div class ="span5 well offset3">
+<p>
+  <b>Name:</b>
+  <%= @manufacturer.name %>
+</p>
+
+<p>
+  <b>Email:</b>
+  <%= @manufacturer.email %>
+</p>
+
+</div>
+
+<div class = "span5 well offset3">
+<% if @verification.size == 0 %>
+    <p align="right"><%= link_to "Request Verification", veri_manufacturer_path(@manufacturer.id, :tag => 1), method: :post %> </p>
+    <p>Account must be verified before you can add products</p>
+<% elsif @vstat == 1 %>
+   <p align="right"> Account Pending Verification</p>
+<% elsif @vstat == 2 %>
+    <p align="right"> Account Verified</p>
+<p><%= link_to "Add Category", new_category_path %> | <%= link_to "Add Product", new_product_path(:tag => 1) %> </p>
+<% elsif @vstat == 3 %>
+     <p align="right"> Failure to Verify, contact admin</p>
+<% end %>
+
+Created Products: <%= link_to @products.size, products_path(:manufacturer_id => @manufacturer.id) %>   
+</div>

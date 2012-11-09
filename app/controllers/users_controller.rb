@@ -18,7 +18,8 @@ class UsersController < ApplicationController
             @products = Product.all
             @categories = Category.all
             @comments = Comment.all
-            
+            @manufacturers = Manufacturer.all
+            @retailers = Retailer.all
             
             
         respond_to do |format|

@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Manufacturer:</b>
+  <%= @verification.manufacturer_id %>
+</p>
+
+<p>
+  <b>Retailer:</b>
+  <%= @verification.retailer_id %>
+</p>
+
+<p>
+  <b>Status:</b>
+  <%= @verification.status %>
+</p>
+
+
+<%= link_to 'Edit', edit_verification_path(@verification) %> |
+<%= link_to 'Back', verifications_path %>

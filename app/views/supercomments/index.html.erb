@@ -1,0 +1,42 @@
+<p id="notice"> <%= notice %> </p>
+<% if @tag.include?("1") %>
+    <h3> Outstanding Manufacturer comments</h3>
+<% elsif @tag.include?("2") %>
+    <h3> Resolved Manufacturer comments</h3>
+
+<% elsif @tag.include?("3") %>
+    <h3> Outstanding Retailer comments</h3>
+
+<% elsif @tag.include?("4") %>
+
+    <h3> Resolved Retailer comments</h3>
+<% end %>
+<div class="span9 well">
+<% @supercomments.each do |supercomment| %>
+    <% if (@tag.include?("1")) || @tag.include?("2") %>
+        <% @creator = Manufacturer.where(:id => supercomment.manufacturer_id) %>
+        <% @name = @creator.pluck(:name) %>
+        <% @name = @name[0] %>
+        
+    <% elsif (@tag.include?("3")) || (@tag.include?("4")) %>
+        <% @creator = Retailer.where(:id => supercomment.retailer_id) %>
+        <% @name = @creator.pluck(:name) %>
+        <% @name = @name[0] %>
+    <% end %>
+
+    <div class="span7 well">
+       <b> <%= supercomment.content %></b> by <%= @name %> at <%= supercomment.created_at.in_time_zone('Eastern Time (US & Canada)').ctime %>
+
+        <ul>
+            <li><%= link_to supercomment.link, supercomment.link %> </li>
+        </ul>
+        <br>
+        <% if (@tag.include?("1")) || @tag.include?("3") %>
+        <%= link_to "Mark Complete", markcomp_supercomment_path(supercomment.id, :tag => @tag) %>
+        <% else %>
+        Completed on <%= supercomment.updated_at.in_time_zone('Eastern Time (US & Canada)').ctime %>
+        <% end %>
+    </div> 
+
+<% end %>
+</div>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121021210121) do
+ActiveRecord::Schema.define(:version => 20121107145014) do
 
   create_table "categories", :force => true do |t|
     t.string   "name"
@@ -67,6 +67,19 @@ ActiveRecord::Schema.define(:version => 20121021210121) do
     t.boolean  "admin"
   end
 
+  create_table "manufacturers", :force => true do |t|
+    t.string   "name"
+    t.string   "email"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+    t.string   "password_digest"
+    t.string   "remember_token"
+    t.boolean  "veri"
+  end
+
+  add_index "manufacturers", ["email"], :name => "index_manufacturers_on_email", :unique => true
+  add_index "manufacturers", ["remember_token"], :name => "index_manufacturers_on_remember_token"
+
   create_table "myitems", :force => true do |t|
     t.integer  "user_id"
     t.integer  "product_id"
@@ -102,7 +115,22 @@ ActiveRecord::Schema.define(:version => 20121021210121) do
     t.integer  "photo_file_size"
     t.datetime "photo_updated_at"
     t.string   "category"
+    t.integer  "manufacturer_id"
+    t.integer  "retailer_id"
   end
+
+  create_table "retailers", :force => true do |t|
+    t.string   "name"
+    t.string   "email"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+    t.string   "password_digest"
+    t.string   "remember_token"
+    t.integer  "veri"
+  end
+
+  add_index "retailers", ["email"], :name => "index_retailers_on_email", :unique => true
+  add_index "retailers", ["remember_token"], :name => "index_retailers_on_remember_token"
 
   create_table "reviews", :force => true do |t|
     t.integer  "user_id"
@@ -113,6 +141,16 @@ ActiveRecord::Schema.define(:version => 20121021210121) do
   end
 
   add_index "reviews", ["user_id"], :name => "index_reviews_on_user_id"
+
+  create_table "supercomments", :force => true do |t|
+    t.integer  "manufacturer_id"
+    t.integer  "retailer_id"
+    t.text     "content"
+    t.string   "link"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+    t.integer  "status"
+  end
 
   create_table "users", :force => true do |t|
     t.string   "screenname"
@@ -131,6 +169,14 @@ ActiveRecord::Schema.define(:version => 20121021210121) do
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["remember_token"], :name => "index_users_on_remember_token"
+
+  create_table "verifications", :force => true do |t|
+    t.integer  "manufacturer_id"
+    t.integer  "retailer_id"
+    t.integer  "status"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
 
   create_table "wishitems", :force => true do |t|
     t.integer  "user_id"

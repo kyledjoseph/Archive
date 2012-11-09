@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Manufacturer:</b>
+  <%= @supercomment.manufacturer_id %>
+</p>
+
+<p>
+  <b>Retailer:</b>
+  <%= @supercomment.retailer_id %>
+</p>
+
+<p>
+  <b>Content:</b>
+  <%= @supercomment.content %>
+</p>
+
+<p>
+  <b>Link:</b>
+  <%= @supercomment.link %>
+</p>
+
+
+<%= link_to 'Edit', edit_supercomment_path(@supercomment) %> |
+<%= link_to 'Back', supercomments_path %>

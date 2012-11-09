@@ -3,6 +3,14 @@ ItemNation::Application.routes.draw do
 
 
 
+  resources :verifications
+
+  resources :supercomments
+
+  resources :manufacturers
+
+  resources :retailers
+
   resources :categories
 
   resources :products
@@ -18,6 +26,8 @@ ItemNation::Application.routes.draw do
       end
     
     resources :sessions, only: [:new, :create, :destroy]
+    resources :resessions, only: [:new, :create, :destroy]
+    resources :masessions, only: [:new, :create, :destroy]
     
     #product routes
      match '/search', to: 'products#search', as: 'search_product'
@@ -27,14 +37,38 @@ ItemNation::Application.routes.draw do
     
     #comment routes
     match 'users/:user_id/comments/:id/markcomp', to: 'comments#markcomp', as: 'markcomp_comment'
+    
+    #supercomment routes
+    match 'supercomments/:id/markcomp', to: 'supercomments#markcomp', as: 'markcomp_supercomment'
+    
+    #manufacturer routes
+    match 'manufacturers/:id/veri', to: 'manufacturers#veri', as: 'veri_manufacturer'
+    
+        
+    
+    #retailer routes
+    match 'retailers/:id/veri', to: 'retailers#veri', as: 'veri_retailer'
 
   get "pages/home"
+    match '/others', to: 'pages#others'
     
     match 'users/:id/admin', to: 'users#admin', as: 'admin_user'
     match '/signin',  to: 'sessions#new'
     match 'auth/:provider/callback', to: 'sessions#create'
     match 'auth/failure', to: redirect('/')
     match 'signout', to: 'sessions#destroy', as: 'signout'
+    
+    #retailer session routes
+    
+    match '/rsignin',  to: 'resessions#new'
+    match '/rsignout', to: 'resessions#destroy', via: :delete
+    
+    #manufacturer session routes
+    
+    match '/msignin',  to: 'masessions#new'
+    match '/msignout', to: 'masessions#destroy', via: :delete
+    
+    
     resources :identities
     #match '/signout', to: 'sessions#destroy', via: :delete
 

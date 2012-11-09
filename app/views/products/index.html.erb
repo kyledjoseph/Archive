@@ -1,18 +1,24 @@
 <p id="notice"><%= notice %></p>
+<% if (params[:manufacturer_id]) || (params[:retailer_id]) %>
+    <h3> Viewing all products added by me</h3>
+<% else %>
 <h1>Viewing all products</h1>
+<% end %>
 
 
  <% @products.each do |product| %>
  
     <p><%= product.name %></p>
     <p><%= link_to image_tag(product.photo.url(:small)), product %>
-
-        <% if !current_user.admin.nil? %>
+        <% if current_user %>
+            <% if !current_user.admin.nil? %>
             [<%= link_to "Delete Item", product, :method => :delete, data: { confirm: 'Are you sure?' } %> | <%= link_to "Edit Item", edit_product_path(product.id) %>]
+            <% end %>
+        
+            <%= link_to "Add to wishlist", user_wishitems_path(@user.id, :product_id => product.id), :method => :post %>
+        <% elsif (macurrent_user) %>
+            <%= link_to "Edit Item", edit_product_path(product.id) %>
         <% end %>
-        <!--<% if current_user %>
-        <%= link_to "Add to wishlist", user_wishitems_path(@user.id, :product_id => product.id), :method => :post %>
-        <% end %>-->
     </p>
     
      <br><br>

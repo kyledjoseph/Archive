@@ -10,6 +10,14 @@
       </ul>
     </div>
   <% end %>
+<% if params[:tag].to_i == 1 %>
+    <div class="field">
+    
+<%= f.hidden_field :manufacturer_id, :value => macurrent_user.id %>
+    </div>
+<% elsif params[:tag].to_i == 2 %>
+    <%= f.hidden_field :retailer_id, :value => recurrent_user.id %>
+<% end %>
 
   <div class="field">
     <%= f.label :name %><br />

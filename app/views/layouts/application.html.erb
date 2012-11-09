@@ -10,7 +10,7 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-<% if current_user %>
+<% if (current_user || macurrent_user || recurrent_user) %>
 <div class="navbar navbar-fixed-top">
     <div class="navbar-inner">
         <div class="container">
@@ -26,18 +26,35 @@
             <div class="nav-collapse">
                 <ul class="nav">
                     <li><%= link_to "Home", root_path %></li>
-                    <li><%= link_to "Profile", current_user %></li>
+                    <% if current_user %>
+                        <li><%= link_to "Profile", current_user %></li>
+                    <% elsif macurrent_user %>
+                        <li><%= link_to "Profile", macurrent_user %></li>
+                    <% elsif recurrent_user %>
+                        <li><%= link_to "Profile", recurrent_user %></li>
+                    <% end %>
                      <li><%= link_to "Product Categories", categories_path %></li>
+                     <% if !(macurrent_user || recurrent_user) %> 
                     <% if !current_user.admin.nil? %>
                     <li><%= link_to "Admin Panel", admin_user_path(current_user.id) %></li>
                     <% end %>
-                    <li><%= link_to "Sign out", signout_path, id: "sign_out" %></li>
-<li><%= form_tag search_product_path, :method => 'get' do %>
-<p>
-<%= text_field_tag :search, params[:search] %>
-<%= submit_tag "Search Products", :name => nil %>
-</p>
-<% end %></li>
+                    <% end %>
+                    <% if current_user %>
+                        <li><%= link_to "Sign out", signout_path, id: "sign_out" %></li>
+                    <% elsif macurrent_user %>
+                        <li><%= link_to "Sign out", '/msignout', method: :delete %></li>
+                    <% elsif recurrent_user %>
+                        <li><%= link_to "Sign out", '/rsignout', method: :delete %></li>
+                    <% end %>
+
+                    <li>
+                        <%= form_tag search_product_path, :method => 'get' do %>
+                        <p>
+                            <%= text_field_tag :search, params[:search] %>
+                            <%= submit_tag "Search Products", :name => nil %>
+                        </p>
+                        <% end %>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -51,6 +68,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                  <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
                 
             </a>
             <a class="brand" href="/">ItemNation</a>
@@ -60,6 +78,7 @@
                     <li><%= link_to "Facebook signin", "/auth/facebook", id: "sign_in" %></li>
                      <li><%= link_to "Google signin", "/auth/google_oauth2", id: "sign_in" %></li>
                     <li><%= link_to "Regular Sign up", new_identity_path %></li>
+                    <li><%= link_to "Others", '/others' %></li>
                 </ul>
             </div>
         </div>
@@ -70,6 +89,10 @@
 <div class = "container">
 <% if session[:user_id] %>
 <p align="right"><%= link_to "+ comment", new_user_comment_path(session[:user_id]) %></p>
+<% elsif macurrent_user %>
+<p align="right"><%= link_to "+ comment", new_supercomment_path %></p>
+<% elsif recurrent_user %>
+<p align="right"><%= link_to "+ comment", new_supercomment_path %></p>
 <% end %>
 <%= yield %>
 </div>
